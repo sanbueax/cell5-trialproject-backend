@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose")
 const cors = require("cors");
 const userRoutes = require("./routes/user");
+const provincesRoutes =  require("./routes/provinces")
 require('dotenv').config()
 const mongodbCloud = process.env.DB_MONGODB
 
@@ -25,5 +26,6 @@ app.use(express.urlencoded({extended: true}))
 app.use(cors()) 
 
 app.use("/api/users", userRoutes);
+app.use("/api/provinces", provincesRoutes);
 
 app.listen(port, () => console.log(`Listening to port ${port}`));
