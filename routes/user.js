@@ -3,6 +3,14 @@ const router = express.Router()
 const auth = require("../auth")
 const UserController = require("../controllers/user")
 
+router.post("/email-exists", (req, res) => {
+	UserController.emailExists(req.body).then(resultFromEmailExists => res.send(resultFromEmailExists))
+})
+
+router.post("/", (req, res) => {
+	UserController.register(req.body).then(resultFromRegister => res.send(resultFromRegister))
+})
+
 router.post('/login', (req, res) => {
 	UserController.login(req.body).then(resultFromLogin => res.send(resultFromLogin))
 })
