@@ -23,19 +23,20 @@ module.exports.register = (params) => {
 
 module.exports.login = (params) => {
 	return User.findOne({email: params.email}).then(resultFromFindOne => {
-		if(resultFromFindOne === null){
-			return false
-		}
-
-		const isPasswordMatched = bcrypt.compareSync(params.password, resultFromFindOne.password)
-
-		if(isPasswordMatched){
-			return {access: auth.createAccessToken(resultFromFindOne.toObject())}
-		}else{
-			return false
-		}
+	  if(resultFromFindOne === null){ 
+		return {error: 'does-not-exist'}
+	  }
+  
+	  const isPasswordMatched = bcrypt.compareSync(params.password, resultFromFindOne.password)
+  
+	  if(isPasswordMatched){
+		return {accessToken: auth.createAccessToken(resultFromFindOne.toObject())}
+	  }else{
+		return {error: 'incorrect-password'}
+	  }
+  
 	})
-}
+  }
 
 module.exports.get = (params) => {
 	return User.findById(params.userId).then(resultFromFindById => {

@@ -8,7 +8,11 @@ const regionSchema = new mongoose.Schema({
 	regionName: {
 		type: String,
 		required: [true, "Region is required"]
+	},
+	isActive: {
+		type: Boolean,
+		default: true
 	}
 });
 
-module.exports = mongoose.model("Region", userSchema)
+module.exports = mongoose.model("Region", regionSchema)
